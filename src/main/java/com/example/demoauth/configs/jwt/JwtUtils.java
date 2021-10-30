@@ -18,10 +18,12 @@ import java.util.Date;
 public class JwtUtils {
     @Value("${app.jwtSecret}")
     private String jwtSecret;
+
     @Value("${app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    public String generateJwtToken(Authentication authentication){
+    public String generateJwtToken(Authentication authentication) {
+
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
@@ -29,18 +31,20 @@ public class JwtUtils {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
 
-    public boolean validateJwtToken(String jwt){
-        try{
+    public boolean validateJwtToken(String jwt) {
+        try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwt);
             return true;
-        }
-        catch (MalformedJwtException | IllegalArgumentException e){
+        } catch (MalformedJwtException e) {
+            System.err.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
         }
+
         return false;
     }
 
-    public String getUsernameFromJwtToken(String jwt){
+    public String getUserNameFromJwtToken(String jwt) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwt).getBody().getSubject();
     }
 }
