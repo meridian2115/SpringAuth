@@ -7,19 +7,20 @@ import com.example.demoauth.models.MenuItem;
  * @author Fedor Danilov 01.11.2021
  */
 public class MenuItemRequest {
-    private Menu menu;
+    private String menu;
     private String name;
     private String link;
-    private MenuItem parentMenuItem;
+    private String parentMenuItem;
     private String description;
     private String svg;
+    private int sorter;
 
-    public Menu getMenu() {
-        return menu;
+    public int getSorter() {
+        return sorter;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setSorter(int sorter) {
+        this.sorter = sorter;
     }
 
     public String getName() {
@@ -38,14 +39,6 @@ public class MenuItemRequest {
         this.link = link;
     }
 
-    public MenuItem getParentMenuItem() {
-        return parentMenuItem;
-    }
-
-    public void setParentMenuItem(MenuItem parentMenuItem) {
-        this.parentMenuItem = parentMenuItem;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -60,5 +53,21 @@ public class MenuItemRequest {
 
     public void setSvg(String svg) {
         this.svg = svg;
+    }
+
+    public String getMenu() {
+        return menu;
+    }
+
+    public void setMenu(String menu) {
+        this.menu = menu;
+    }
+
+    public String getParentMenuItem() {
+        return parentMenuItem;
+    }
+
+    public void setParentMenuItem(String parentMenuItem) {
+        this.parentMenuItem = parentMenuItem;
     }
 }

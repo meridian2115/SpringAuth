@@ -2,7 +2,6 @@ package com.example.demoauth.models;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,7 +18,9 @@ public class Menu {
     private MenuPosition position;
     private String name;
 
-    //private Set<MenuItem> menuItems = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "menu_id")
+    private Set<MenuItem> menuItems = new HashSet<>();
 
     public Menu() {
     }
@@ -50,5 +51,13 @@ public class Menu {
 
     public void setPosition(MenuPosition position) {
         this.position = position;
+    }
+
+    public Set<MenuItem> getMenuItems() {
+        return menuItems;
+    }
+
+    public void setMenuItems(Set<MenuItem> menuItems) {
+        this.menuItems = menuItems;
     }
 }
