@@ -1,5 +1,7 @@
 package com.example.demoauth.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -13,6 +15,7 @@ public class MenuItem {
 
     @ManyToOne
     @JoinColumn(name = "menu_id")
+    @JsonIgnore
     private Menu menu;
 
     private String name;
@@ -22,16 +25,24 @@ public class MenuItem {
     private MenuItem parentMenuItem;
     private String description;
     private String svg;
+    private int sorter;
 
     public MenuItem() {}
 
-    public MenuItem(Menu menu, String name, String link, MenuItem parentMenuItem, String description, String svg) {
-        this.menu = menu;
+    public MenuItem(String name, String link, String description, String svg, int sorter) {
         this.name = name;
         this.link = link;
-        this.parentMenuItem = parentMenuItem;
         this.description = description;
         this.svg = svg;
+        this.sorter = sorter;
+    }
+
+    public int getSorter() {
+        return sorter;
+    }
+
+    public void setSorter(int sorter) {
+        this.sorter = sorter;
     }
 
     public Long getId() {
